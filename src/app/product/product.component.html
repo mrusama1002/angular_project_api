@@ -1,0 +1,55 @@
+<div class="text-center mt-5">
+    <h1>{{ title }}</h1>  
+</div>
+<div *ngIf="result.length == 0" class="text-center mt-5">
+    <div class="container">
+        <div class="row">
+            <button *ngFor="let category of categories" (click)="page(category.Term.id)" class="col-4 bg-light p-5">
+                {{ category.Term.name }}
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="result.length > 0 && service == null">
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let service of result" class="col-4">
+                <div class="row">
+                    <div class="col-12">
+                        <button class="bg-light p-5">
+                            <div (click)="showDetail(service)">
+                                {{ service.title }}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <h5> {{ service.title }} </h5>
+                    <a type="button" class="btn btn-primary text-white" (click)="showDetail(service)">Meer Info</a>
+                </div>
+            </div>
+            <button class="mt-5 bg-dark text-white" (click)="moveBack()">{{pageData.Page.back_btn}}</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="service != null" class="container" >
+    <div class="row">
+        <div class="bg-light">
+            <h3>{{ service.title }}</h3>
+            <div class="col-md-6">
+                <!-- <img src="{{ service.image }}" class="card-img" alt="..."> -->
+            </div>
+            <div class="col-md-6">
+                <div [innerHTML]="service.work"></div>
+                    <p> Time: {{ service.time }} Price: {{ service.price }} </p>
+                <div [innerHTML]="service.body"></div>
+                <a type="button" class="btn btn-primary text-white" (click)="moveBack()">maak een afspraak</a>
+                <a href="#" (click)="moveBackTo()" class="float-right"> {{service.back_btn}} </a>
+            </div>
+        </div>
+    </div>
+</div>
+
